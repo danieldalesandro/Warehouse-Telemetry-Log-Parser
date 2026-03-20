@@ -31,9 +31,9 @@ public class WarehouseLogParser {
     public static String classifyRisk(int risk, String event) {
         if (event.equals("ACCESS_DENIED") && (risk >= 80 && risk <= 100)) {
             return "CRITICAL";
-        } else if (event.equals("TAMPER_ALERT") && (risk >= 65 && risk <= 85)) {
+        } else if (event.equals("TAMPER_ALERT") && (risk >= 65 && risk <= 85)){
             return "HIGH RISK";
-        } else if (event.equals("MOTION_DETECTED") && (risk >= 45 && risk <= 65)) {
+        } else if (event.equals("MOTION_DETECTED") && (risk >= 45 && risk <= 65)){
             return "INVESTIGATE";
         } else {
             return "ACCEPTABLE";
@@ -85,9 +85,11 @@ public class WarehouseLogParser {
             }
         } // For end 
 
+        System.out.println("");
         System.out.println("Critical risk: " + criticalCount);
         System.out.println("High risk: " + highCount);
         System.out.println("Investigate: " + investigateCount);
      }// Main end 
 
 } // Class end 
+
