@@ -1,68 +1,51 @@
 # Warehouse Telemetry Log Parser
 
-A Java console application that simulates a security detection pipeline for warehouse IoT infrastructure. Ingests raw device telemetry log strings from sensors, access panels, SCADA controllers, and cameras, parses and validates each field, classifies threat severity, and generates a structured detection report.
+A Java console application that parses warehouse IoT security logs, classifies suspicious activity by severity, and prints a simple detection summary report.
 
----
+## Why I Built This
 
-## What It Does
+I built this project to practice Java string parsing, input validation, and security-focused logic in a scenario modeled after warehouse and operational technology environments.
 
-- Accepts raw IoT device log strings via console input
-- Parses device ID, event type, and risk score from each log using String methods
-- Classifies each device event into a threat tier based on event type and risk score
-- Prints a formatted detection report per device
-- Outputs a summary count of threats by classification tier
+The project simulates how raw telemetry from devices such as access panels, sensors, cameras, and SCADA controllers could be processed into a readable detection report.
 
----
+## Features
 
-## Threat Classifications
-
-| Classification | Criteria |
-|---|---|
-| CRITICAL | ACCESS_DENIED event with risk score 80–100 |
-| HIGH RISK | TAMPER_ALERT event with risk score 65–85 |
-| INVESTIGATE | MOTION_DETECTED event with risk score 45–65 |
-| ACCEPTABLE | Everything else |
-
----
+- Parses raw telemetry log strings entered through the console
+- Extracts device ID, event type, and risk score
+- Classifies activity into severity tiers
+- Prints a formatted per-device report
+- Displays a final summary of detected activity
 
 ## Log Format
 
-Logs must follow this exact format:
+Each log must follow this format:
 
-```
-DEVICE:{id}|EVENT:{event_type}|RISKSCORE:{score}
-```
+`DEVICE:{id}|EVENT:{event_type}|RISKSCORE:{score}`
 
-Example:
+### Example
 
-```
-DEVICE:ACC002|EVENT:ACCESS_DENIED|RISKSCORE:91
-```
+`DEVICE:ACC002|EVENT:ACCESS_DENIED|RISKSCORE:91`
 
-Supported event types: `ACCESS_DENIED`, `ACCESS_GRANTED`, `TAMPER_ALERT`, `MOTION_DETECTED`, `UNKNOWN`
+## Supported Event Types
 
----
+- ACCESS_DENIED
+- ACCESS_GRANTED
+- TAMPER_ALERT
+- MOTION_DETECTED
+- UNKNOWN
 
-## Sample Output
+## Classification Rules
 
-```
-Device        : ACC002
-Event         : ACCESS_DENIED
-Riskscore     : 91
-Classification: CRITICAL
+- **CRITICAL** -> `ACCESS_DENIED` with risk score `80-100`
+- **HIGH RISK** -> `TAMPER_ALERT` with risk score `65-85`
+- **INVESTIGATE** -> `MOTION_DETECTED` with risk score `45-65`
+- **ACCEPTABLE** -> everything else
 
-Critical risk: 2
-High risk: 1
-Investigate: 1
-```
+## Sample Input
 
----
+Enter these logs one at a time when prompted:
 
-## Test Strings
-
-Copy and paste these one at a time when prompted:
-
-```
+```text
 DEVICE:SENS001|EVENT:MOTION_DETECTED|RISKSCORE:82
 DEVICE:ACC002|EVENT:ACCESS_DENIED|RISKSCORE:91
 DEVICE:SCADA003|EVENT:TAMPER_ALERT|RISKSCORE:67
@@ -70,38 +53,85 @@ DEVICE:CAM004|EVENT:MOTION_DETECTED|RISKSCORE:44
 DEVICE:ACC005|EVENT:ACCESS_GRANTED|RISKSCORE:23
 ```
 
-Expected output: 1 CRITICAL, 1 HIGH RISK, 0 INVESTIGATE, 2 ACCEPTABLE.
+## Example Output
 
----
+```text
+Device        : SENS001
+Event         : MOTION_DETECTED
+Risk Score    : 82
+Classification: ACCEPTABLE
+
+Device        : ACC002
+Event         : ACCESS_DENIED
+Risk Score    : 91
+Classification: CRITICAL
+
+Device        : SCADA003
+Event         : TAMPER_ALERT
+Risk Score    : 67
+Classification: HIGH RISK
+
+Device        : CAM004
+Event         : MOTION_DETECTED
+Risk Score    : 44
+Classification: ACCEPTABLE
+
+Device        : ACC005
+Event         : ACCESS_GRANTED
+Risk Score    : 23
+Classification: ACCEPTABLE
+```
+
+## Expected Summary
+
+```text
+Critical: 1
+High Risk: 1
+Investigate: 0
+Acceptable: 3
+```
 
 ## How to Run
 
-1. Compile the file:
+### Compile
 
-```
+```bash
 javac WarehouseLogParser.java
 ```
 
-2. Run the program:
+### Run
 
-```
+```bash
 java WarehouseLogParser
 ```
 
-3. When prompted, enter 5 log strings one per line following the format above.
+Then enter 5 log strings, one per line, using the required format.
 
----
+## Technical Notes
 
-## Technical Details
+- **Language:** Java
+- **Input:** `Scanner`
+- **Parsing:** `indexOf()` and `substring()`
+- **Design:** procedural, single-file console application
 
-- Language: Java (procedural — no OOP)
-- Input: Scanner-based console input fills a String array
-- Parsing: Custom `extractField` method using `indexOf` and `substring`
-- Validation: Event type and risk score range checked before classification
-- Output: Formatted per-device report with summary counters
+## What This Project Demonstrates
 
----
+- Java fundamentals
+- String parsing and field extraction
+- Conditional classification logic
+- Console-based program flow
+- Security-minded thinking in an IoT / OT context
 
-## About
+## Future Improvements
 
-Built by a self-taught developer interested in cybersecurity and detection engineering. The theme is modeled after real IoT/OT security environments — warehouse sensors, SCADA controllers, and access panels.
+- Add stronger malformed-input handling
+- Move logic into separate classes
+- Add JUnit tests
+- Support file-based log ingestion
+- Export results to CSV or JSON
+
+## Author
+
+Daniel Dalesandro
+
+Aspiring software engineer with a strong interest in cybersecurity, detection engineering, and secure systems.
