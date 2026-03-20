@@ -88,7 +88,6 @@ Classification: ACCEPTABLE
 Critical: 1
 High Risk: 1
 Investigate: 0
-Acceptable: 3
 ```
 
 ## How to Run
