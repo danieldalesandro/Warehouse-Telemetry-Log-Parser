@@ -2,8 +2,6 @@
 
 A Java console application that simulates a security detection pipeline for warehouse IoT infrastructure. Ingests raw device telemetry log strings from sensors, access panels, SCADA controllers, and cameras, parses and validates each field, classifies threat severity, and generates a structured detection report.
 
-Built as Project 1 of a structured Java software engineering curriculum focused on cybersecurity and detection engineering.
-
 ---
 
 ## What It Does
