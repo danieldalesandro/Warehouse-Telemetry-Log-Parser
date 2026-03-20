@@ -1,5 +1,3 @@
-# Warehouse-Telemetry-Log-Parser
-Warehouse IoT telemetry log parser written in Java. Parses device logs from sensors, SCADA controllers, and access panels, classifies threat severity, and generates a structured detection report.
 # Warehouse Telemetry Log Parser
 
 A Java console application that simulates a security detection pipeline for warehouse IoT infrastructure. Ingests raw device telemetry log strings from sensors, access panels, SCADA controllers, and cameras, parses and validates each field, classifies threat severity, and generates a structured detection report.
